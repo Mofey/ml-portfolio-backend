@@ -1,15 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const nodemailer = require('nodemailer');
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 
 // Middleware to enable CORS for your frontend URL
-const corsOptions = {
+const corsOptions: cors.CorsOptions = {
   origin: 'http://localhost:5173', // Replace this with your frontend's URL
   methods: 'GET, POST', // Allowed methods
   allowedHeaders: 'Content-Type', // Allowed headers
@@ -30,12 +30,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Route to check if the server is running
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Server is running');
 });
 
-// Contact form submission handler
-app.post('/api/contact', async (req, res) => {
+// Contact form submission handler with correct type annotations
+app.post('/api/contact', async (req: Request, res: Response): Promise<any> => {
   const { name, email, message } = req.body;
 
   // Simple validation
@@ -54,10 +54,10 @@ app.post('/api/contact', async (req, res) => {
     // Send email using Nodemailer
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent:', info.response);
-    res.status(200).json({ message: 'Message received successfully' });
-  } catch (error) {
+    return res.status(200).json({ message: 'Message received successfully' });
+  } catch (error: any) {
     console.error('Error sending email:', error.message);
-    res.status(500).json({ error: 'Failed to send message. Please try again later.' });
+    return res.status(500).json({ error: 'Failed to send message. Please try again later.' });
   }
 });
 
