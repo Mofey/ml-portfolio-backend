@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware to enable CORS for your frontend URL
 const corsOptions: cors.CorsOptions = {
-  origin: 'http://localhost:5173', // Replace this with your frontend's URL
+  origin: ['http://localhost:5173', 'https://ml-portfolio-frontend.vercel.app/'], // Replace this with your frontend's URL
   methods: 'GET, POST', // Allowed methods
   allowedHeaders: 'Content-Type', // Allowed headers
 };
