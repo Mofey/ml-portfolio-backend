@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config(); // Loads environment variables from .env file
 
 const app = express();
 
